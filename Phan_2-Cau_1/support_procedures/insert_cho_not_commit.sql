@@ -1,0 +1,33 @@
+USE transportation_service;
+DROP PROCEDURE IF EXISTS  INSERT_CHO_NOT_COMMIT;
+
+DELIMITER $$
+
+-- AFTER USE(i.e. COMMIT) MUST SET AUTOCOMMIT = 1
+CREATE PROCEDURE INSERT_CHO_NOT_COMMIT
+	(MA_KIEN_HANG INT,
+    MA_CHUYEN_XE INT) 
+BEGIN
+	DECLARE package_weight DECIMAL(4,1);
+
+	SET AUTOCOMMIT = 0;
+
+	INSERT INTO CHO
+    VALUES(MA_KIEN_HANG, MA_CHUYEN_XE);
+    
+    SET package_weight = WEIGHT_OF_PACKAGE(MA_KIEN_HANG);
+    
+    IF (package_weight + WEIGHT_OF_SHIP(MA_CHUYEN_XE)
+			> WEIGHT_OF_CONTAINER_OF_SHIP(MA_CHUYEN_XE)) THEN
+		SIGNAL SQLSTATE '45000'
+		SET MESSAGE_TEXT = 'Tổng khối lượng của các kiện hàng trong chuyến xe liên tỉnh không quá trọng tải của container';
+    END IF;
+    
+    UPDATE CHUYEN_XE_LIEN_TINH c
+    SET SO_KIEN_HANG = SO_KIEN_HANG + 1,
+		KHOI_LUONG_HIEN_TAI = KHOI_LUONG_HIEN_TAI + package_weight
+	WHERE c.MA_CHUYEN = MA_CHUYEN_XE;
+END $$
+
+DELIMITER ;
+
