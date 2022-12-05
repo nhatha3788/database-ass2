@@ -8,13 +8,15 @@ begin
 	select count(*) into total from KIEN_HANG where KIEN_HANG.MA_NGUOI_NHAN=id;
 	return total;
 end $$
-delimiter ; select numberOfPackage(10)
+delimiter ; 
+-- select numberOfPackage(10)
 
 
 
 
 
 -- đếm số kiện hàng của mỗi trạng thái
+-- dem so yeu cau theo trang thai
 DROP FUNCTION IF EXISTS numberOfStatus;
 delimiter $$
 create function numberOfStatus(status VARCHAR(20))
@@ -24,4 +26,5 @@ begin
 	select count(*) into total from YEU_CAU where YEU_CAU.TRANG_THAI=status;
 	return total;
 end $$
-delimiter ;  SELECT numberOfStatus('DA HOAN THANH')
+delimiter ;  
+-- SELECT numberOfStatus('DA HOAN THANH')

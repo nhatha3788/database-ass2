@@ -14,10 +14,12 @@ DELIMITER ;
 
 DROP PROCEDURE IF EXISTS RevenueOfCustomer;
 DELIMITER //
-CREATE PROCEDURE RevenueOfCustomer (IN ID_KH INT, IN NAM YEAR, OUT RESULT INT)
+CREATE PROCEDURE RevenueOfCustomer (IN ID_KH INT, IN NAM YEAR)
 BEGIN
-	DECLARE phi_ng int;
-    DECLARE phi_nn int;
+	DECLARE phi_ng INT;
+    DECLARE phi_nn INT;
+    DECLARE RESULT INT;
+    
 	SELECT SUM(PHI_NOI_THANH) INTO phi_ng
     FROM KIEN_HANG JOIN BIEN_BAN_GUI ON MA_BBG = BBGID
     WHERE KIEN_HANG.MA_NGUOI_GUI = ID_KH AND NGAY_GUI LIKE CONCAT(NAM,'%');
@@ -32,12 +34,13 @@ BEGIN
 		SET phi_nn = 0;
 	END IF;
    
-    set RESULT = phi_ng;
-    set RESULT = RESULT + phi_nn;
+    SET RESULT = phi_ng;
+    SET RESULT = RESULT + phi_nn;
+    
+    SELECT RESULT;
 END //
-
 DELIMITER ;
 
---CALL FindReceiveDate(2,7,'2022/10/01');
---CALL RevenueOfCustomer(2,'2022',@RESULT);
---SELECT @RESULT;
+-- CALL FindReceiveDate(2,7,'2022/10/01');
+-- CALL RevenueOfCustomer(2,'2022',@RESULT);
+-- SELECT @RESULT;
