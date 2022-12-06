@@ -1,0 +1,21 @@
+USE transportation_service;
+DROP TRIGGER IF EXISTS  INSERT_CXLT_TRIGGER;
+
+DELIMITER $$
+
+CREATE TRIGGER INSERT_CXLT_TRIGGER BEFORE INSERT ON CHUYEN_XE_LIEN_TINH
+FOR EACH ROW
+BEGIN
+	IF (NEW.NGAY_XUAT_KHO > NEW.NGAY_NHAP_KHO) THEN
+		SIGNAL SQLSTATE '45000'
+		SET MESSAGE_TEXT = 'Ngày đến phải là ngày sau hoặc trùng với ngày đi';
+	END IF;
+    
+    IF (NEW.MA_KHO_DI = NEW.MA_KHO_DEN) THEN
+		SIGNAL SQLSTATE '45000'
+		SET MESSAGE_TEXT = 'Chuyến xe liên tỉnh phải có Kho đi và Kho đến thuộc hai tỉnh khác nhau';
+	END IF;
+    
+END $$
+
+DELIMITER ; 
