@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from "react";
-import {Link, useNavigate} from "react-router-dom";
-import {toast} from "react-toastify";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import axios from "axios";
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import PropTypes from 'prop-types';
@@ -26,35 +26,35 @@ import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOu
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     '& .MuiDialogContent-root': {
-      padding: theme.spacing(2),
+        padding: theme.spacing(2),
     },
     '& .MuiDialogActions-root': {
-      padding: theme.spacing(1),
+        padding: theme.spacing(1),
     },
 }));
 function BootstrapDialogTitle(props) {
     const { children, onClose, ...other } = props;
     return (
-      <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
-        {children}
-        {onClose ? (
-          <IconButton
-            aria-label="close"
-            onClick={onClose}
-            sx={{
-              position: 'absolute',
-              right: 8,
-              top: 8,
-              color: (theme) => theme.palette.grey[500],
-            }}
-          >
-            <CloseIcon />
-          </IconButton>
-        ) : null}
-      </DialogTitle>
+        <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
+            {children}
+            {onClose ? (
+                <IconButton
+                    aria-label="close"
+                    onClick={onClose}
+                    sx={{
+                        position: 'absolute',
+                        right: 8,
+                        top: 8,
+                        color: (theme) => theme.palette.grey[500],
+                    }}
+                >
+                    <CloseIcon />
+                </IconButton>
+            ) : null}
+        </DialogTitle>
     );
-  }
-  
+}
+
 BootstrapDialogTitle.propTypes = {
     children: PropTypes.node,
     onClose: PropTypes.func.isRequired,
@@ -62,13 +62,13 @@ BootstrapDialogTitle.propTypes = {
 
 const CustomColor = withStyles({
     root: {
-      background: "-webkit-linear-gradient(180deg, #426DEC 0%, #86C991 100%)",
-      WebkitBackgroundClip: "text",
-      WebkitTextFillColor: "transparent"
+        background: "-webkit-linear-gradient(180deg, #426DEC 0%, #86C991 100%)",
+        WebkitBackgroundClip: "text",
+        WebkitTextFillColor: "transparent"
     }
 })(Typography);
 
-export default function ChuyenXe (){
+export default function ChuyenXe() {
     const navigate = useNavigate();
     const [open, setOpen] = React.useState(false);
     const [openResult, setOpenResult] = React.useState(false);
@@ -95,36 +95,35 @@ export default function ChuyenXe (){
     // };
     useEffect(() => {
         axios.get("http://localhost:5000/api/get/chuyenxelientinh")
-        .then ((response) => {
-        setDataInterTrip(response.data);
-        console.log(response.data);
-        })
-    },[])
+            .then((response) => {
+                setDataInterTrip(response.data);
+            })
+    }, [])
 
     useEffect(() => {
         axios.get("http://localhost:5000/api/get/cuocxenoithanh")
-        .then ((response) => {
-        setDataLocalTrip(response.data);
-        })
-    },[]);
+            .then((response) => {
+                setDataLocalTrip(response.data);
+            })
+    }, []);
 
     useEffect(() => {
         axios.get("http://localhost:5000/api/get/cho")
-        .then ((response) => {
-            setDataTransport(response.data);
-        })
-    },[]);
+            .then((response) => {
+                setDataTransport(response.data);
+            })
+    }, []);
 
     const columnsInterTrip = [
         { field: 'MA_CHUYEN', headerName: 'Mã khách hàng', width: 70 },
         { field: 'QUANG_DUONG', headerName: 'Quãng đường', width: 120 },
         { field: 'MA_XE', headerName: 'Mã xe', width: 80 },
-        { field: 'MA_TAI_XE',headerName: 'Mã tài xế', width: 100, height: 500},
+        { field: 'MA_TAI_XE', headerName: 'Mã tài xế', width: 100, height: 500 },
         { field: 'MA_LO_XE', headerName: 'Mã lơ xe', width: 100 },
         { field: 'MA_KHO_DI', headerName: 'Mã kho đi', width: 100 },
         { field: 'NGAY_XUAT_KHO', headerName: 'Ngày xuất kho', width: 200 },
         { field: 'MA_NGUOI_XUAT', headerName: 'Mã người xuất', width: 100 },
-        { field: 'MA_KHO_DEN', headerName: 'Mã kho đến', width: 100},
+        { field: 'MA_KHO_DEN', headerName: 'Mã kho đến', width: 100 },
         { field: 'NGAY_NHAP_KHO', headerName: 'Ngày nhập kho', width: 200 },
         { field: 'MA_NGUOI_NHAP', headerName: 'Mã người nhập', width: 100 },
         { field: 'SO_KIEN_HANG', headerName: 'Số kiện hàng', width: 100 },
@@ -134,7 +133,7 @@ export default function ChuyenXe (){
         { field: 'MA_CHUYEN', headerName: 'Mã chuyến xe', width: 100 },
         { field: 'MA_KHO', headerName: 'Mã kho', width: 80 },
         { field: 'MA_XE', headerName: 'Mã xe', width: 80 },
-        { field: 'MA_TAI_XE',headerName: 'Mã tài xế', width: 80, height: 500},
+        { field: 'MA_TAI_XE', headerName: 'Mã tài xế', width: 80, height: 500 },
         { field: 'MA_LO_XE', headerName: 'Mã lơ xe', width: 80 },
         { field: 'TRONG_LUONG_HIEN_TAI', headerName: 'Trọng lượng hiện tại', width: 150 },
     ];
@@ -142,8 +141,8 @@ export default function ChuyenXe (){
         { field: 'MA_KIEN_HANG', headerName: 'Mã kiện hàng', width: 150 },
         { field: 'MA_CHUYEN_XE', headerName: 'Mã chuyến xe', width: 150 },
     ];
-    
-    
+
+
     const [input, setInput] = useState({
         MA_KIEN_HANG: "",
         MA_CHUYEN_XE: ""
@@ -154,7 +153,7 @@ export default function ChuyenXe (){
     };
     const handleSubmit = async (e) => {
         //e.preventDefault();
-        if(!input.MA_KIEN_HANG|| !input.MA_CHUYEN_XE){
+        if (!input.MA_KIEN_HANG || !input.MA_CHUYEN_XE) {
             toast.error("Please provide value into each input field");
         }
         else {
@@ -164,40 +163,46 @@ export default function ChuyenXe (){
             };
             //console.log(sendData);
             axios.post(`http://localhost:5000/api/insert`, sendData)
-            .then((res) => {
-                console.log(res);
-                toast.success("Insert successfully");
-                handleClose(); 
-                //handleOpenResult(); 
-                <ChuyenXe></ChuyenXe>
-                setInput({
-                    ...input,
-                    MA_KIEN_HANG: "",
-                    MA_CHUYEN_XE: ""
+                .then((res) => {
+                    const mes = res.data.sqlMessage;
+                    if (mes === "") {
+                        toast.success("Insert successfully");
+                        handleClose();
+                        //handleOpenResult(); 
+                        <ChuyenXe></ChuyenXe>
+                        setInput({
+                            ...input,
+                            MA_KIEN_HANG: "",
+                            MA_CHUYEN_XE: ""
+                        });
+                    }
+                    else {
+                        toast.error(mes)
+                        handleClose();
+                    }
+                })
+                .catch((error) => {
+                    console.log(error.response);
+                    toast.error(error.response);
                 });
-            })
-            .catch((error) => {
-                console.log(error.response);
-                toast.error(error.response);
-            });
-            
+
         }
     };
 
-    return(
+    return (
         <div>
             <Box sx={{ flexGrow: 1 }} >
-                <Grid 
+                <Grid
                     container
-                    spacing={2} 
-                    columns={16}  
+                    spacing={2}
+                    columns={16}
                     justifyContent="left"
                     flexDirection={{ xs: "column", sm: "row" }}
-                    //columnSpacing={1}
+                //columnSpacing={1}
                 >
                     <Grid item xs={12.9} md={12.9} lg={15.2}>
-                        <Button variant="outlined" onClick={handleClickOpen} style={{float: 'right'}} >
-                        <AddCircleOutlineOutlinedIcon/> Thêm kiện hàng, chuyến xe
+                        <Button variant="outlined" onClick={handleClickOpen} style={{ float: 'right' }} >
+                            <AddCircleOutlineOutlinedIcon /> Thêm kiện hàng, chuyến xe
                         </Button>
                     </Grid>
                     <Grid item xs={16} md={16} lg={16}>
@@ -207,7 +212,7 @@ export default function ChuyenXe (){
                             open={open}
                         >
                             <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
-                            Thêm kiện hàng, chuyến xe
+                                Thêm kiện hàng, chuyến xe
                             </BootstrapDialogTitle>
                             <DialogContent dividers>
                                 <Box
@@ -217,15 +222,15 @@ export default function ChuyenXe (){
                                     }}
                                     noValidate
                                     autoComplete="off"
-                                    >
-                                        <TextField id="outlined-basic" label="Mã kiện hàng" variant="outlined" InputLabelProps={{shrink: true}} type ="number" name="MA_KIEN_HANG" value={input.MA_KIEN_HANG}
-                                                onChange={handleChange} required/>
-                                        <TextField id="outlined-basic" label="Mã chuyến xe" variant="outlined" InputLabelProps={{shrink: true}} type ="number" name="MA_CHUYEN_XE" value={input.MA_CHUYEN_XE}
-                                                onChange={handleChange} required/>
+                                >
+                                    <TextField id="outlined-basic" label="Mã kiện hàng" variant="outlined" InputLabelProps={{ shrink: true }} type="number" name="MA_KIEN_HANG" value={input.MA_KIEN_HANG}
+                                        onChange={handleChange} required />
+                                    <TextField id="outlined-basic" label="Mã chuyến xe" variant="outlined" InputLabelProps={{ shrink: true }} type="number" name="MA_CHUYEN_XE" value={input.MA_CHUYEN_XE}
+                                        onChange={handleChange} required />
                                 </Box>
                             </DialogContent>
                             <DialogActions>
-                                <Button autoFocus onClick={()=>{handleSubmit()}}>
+                                <Button autoFocus onClick={() => { handleSubmit() }}>
                                     Save changes
                                 </Button>
                             </DialogActions>
@@ -235,36 +240,36 @@ export default function ChuyenXe (){
                         <CustomColor><Typography><strong>CUỐC XE NỘI THÀNH</strong></Typography></CustomColor>
                     </Grid>
                     <Grid item lg={8}>
-                    <div style={{ height: 500, width: '100%', marginLeft: '61px' }}>
-                        <DataGrid
-                            rows={dataLocalTrip}
-                            columns={columnsLocalTrip}
-                            //pageSize={5}
-                            //rowsPerPageOptions={[5]}
-                            //checkboxSelection
-                            getRowId={row => row.MA_CHUYEN}
-                            rowHeight={50}
-                            components={{ Toolbar: GridToolbar }}
-                        />
-                    </div>
+                        <div style={{ height: 500, width: '100%', marginLeft: '61px' }}>
+                            <DataGrid
+                                rows={dataLocalTrip}
+                                columns={columnsLocalTrip}
+                                //pageSize={5}
+                                //rowsPerPageOptions={[5]}
+                                //checkboxSelection
+                                getRowId={row => row.MA_CHUYEN}
+                                rowHeight={50}
+                                components={{ Toolbar: GridToolbar }}
+                            />
+                        </div>
                     </Grid>
                     <Grid item xs={16} md={16} lg={6}>
-                    <div style={{ height: 500, width: '100%', marginLeft: '100px' }}>
-                        <DataGrid
-                            rows={dataTransport}
-                            columns={columnsTransport}
-                            //pageSize={5}
-                            //rowsPerPageOptions={[5]}
-                            //checkboxSelection
-                            getRowId={row => row.MA_KIEN_HANG}
-                            rowHeight={50}
-                            components={{ Toolbar: GridToolbar }}
-                        />
-                    </div>
+                        <div style={{ height: 500, width: '100%', marginLeft: '100px' }}>
+                            <DataGrid
+                                rows={dataTransport}
+                                columns={columnsTransport}
+                                //pageSize={5}
+                                //rowsPerPageOptions={[5]}
+                                //checkboxSelection
+                                getRowId={row => dataTransport.indexOf(row)}
+                                rowHeight={50}
+                                components={{ Toolbar: GridToolbar }}
+                            />
+                        </div>
                     </Grid>
                     <Grid item lg={16}>
                         <CustomColor><Typography><strong>CHUYẾN XE LIÊN TỈNH</strong></Typography></CustomColor>
-                    </Grid> 
+                    </Grid>
                     <Grid item xs={16} md={16} lg={16}>
                         <div style={{ height: 500, width: '90%', margin: 'auto' }}>
                             <DataGrid
